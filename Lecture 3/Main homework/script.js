@@ -13,10 +13,16 @@ let myShop = {
 for (let i = 0; i < 5; i++) {
   let product = prompt("Что будем продавать?");
 
+  while (product == null || product === "" || product.length > 10 || !isNaN(product)) {
+    product = prompt("Что будем продавать?");
+  }
+
   if (product !== null && product !== "" && product.length < 10) {
     myShop.shopProduct[i] = product;
   }
 }
+
+// P.S. Основное задание номер один я решила через два часа после дедлайна. Не знаю или можно было его ещё добавлять. Если что, то просто его проигнорируй
 
 if (time < 0) {
   console.log("Такого не может быть");
