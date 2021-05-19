@@ -95,3 +95,28 @@
 
 // console.log(element);
 // ====================================
+
+
+// УСЛОЖНЕННОЕ ЗАДАНИЕ
+
+// // Задание 1
+// let str = "урок-был-слишком-легким";
+// str = str.charAt(0).toUpperCase() + str.slice(1);
+// console.log(str);
+
+// // Задание 2
+// str = str.split("-").join(" ")
+// console.log(str);
+
+// // Задание 3
+// str = str.slice(-6).replace("им", "оо");
+// console.log(str);
+
+// // Задание 4
+// let arr = [20, 33, 1, "Человек", 2, 3];
+
+// let newArr = arr.filter(item => !isNaN(item))
+
+// let result = Math.sqrt(newArr.map(item => Math.pow(item, 3)).reduce( (a, b) => a + b));
+
+// console.log(result);
