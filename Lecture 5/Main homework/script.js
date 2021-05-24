@@ -1,59 +1,54 @@
-let userBudget, shopName, price, employeeName;
+let price, employeeName;
 
 let myShop = {
-    budget: userBudget,
-    name: shopName,
+    budget: "",
+    name: "",
     shopProduct: [],
     shopProductItems: [],
     employees: {},
     open: false,
     discount: true,
-    startShop: function() {
-      userBudget = +prompt("Ваш бюджет", "Введите ваш бюджет");
+    startShop() {
+      let userBudget = +prompt("Ваш бюджет", "Введите ваш бюджет");
     
-      while (isNaN(userBudget) || userBudget === "" || userBudget === 0) {
+      while (!userBudget) {
         userBudget = +prompt("Ошибка. Для введения значения бюджета используйте цифры", "Введите ваш бюджет");
       }
+      this.budget = userBudget;
     
-      shopName = prompt("Какое название у вашего магазина?", "");
+      let shopName = prompt("Какое название у вашего магазина?", "");
     
-      while (shopName === null || shopName === "") {
+      while (!shopName) {
         shopName = prompt("Что-то пошло не так. Название магазина должно содержать символы", "Введите верное название магазина");
       }
     
-      shopName = shopName.toLowerCase();
+      this.name = shopName.toLowerCase();
     },
-    addProductType: function() {
+    addProductType() {
       for (let i = 0; i < 5; i++) {
         let product = prompt("Какие категории товара будем продавать", "");
       
-        if(isNaN(+product)) {
-          if (typeof product !== null && product !== "" && product.length < 20) {
-            myShop.shopProduct[i] = product;
-          } else {
-            i--;
-          }
-        } else {
+        if(!isNaN(+product) || !product || product.length > 20) {
           i--;
+        } else {
+          this.shopProduct[i] = product;
         }
       }
     },
-    addProductItems: function() {
+    addProductItems() {
       let items = prompt("Перечислите товары через запятую", "");
-      while ( !isNaN(items) || items === null || items === "") {
+      while ( !isNaN(items) || !items) {
         items = prompt("Перечислите товары через запятую. Не оставляйте поле пустым и не нажимайте кнопку Отмена", "");
       }
-      myShop.shopProductItems = items.toLowerCase().split(",");
+      this.shopProductItems = items.toLowerCase().split(",");
 
-      let newItem = prompt("Что-то ещё?", "");
-      while (!isNaN(newItem) || newItem === null || newItem === "") {
-        newItem = prompt("Перечислите товары через запятую. Не оставляйте поле пустым и не нажимайте кнопку Отмена", "");
+      let lostItem = prompt("Что-то ещё?", "");
+      if (lostItem && lostItem !== " ") {
+        this.shopProductItems.push(lostItem.toLowerCase());
       }
-      myShop.shopProductItems.push(newItem.toLowerCase());
-      myShop.shopProductItems.join(",").toLowerCase().split(",");
-      myShop.shopProductItems.sort();
+      this.shopProductItems.sort();
     },
-    controlTimeWorking: function(time) {
+    controlTimeWorking(time) {
       if (time < 0) {
       console.log("Такого не может быть");
       } else if (time > 8 && time < 20) {
@@ -64,41 +59,41 @@ let myShop = {
       console.log("В сутках только 24 часа!");
       }
     },
-    discountCalc: function(price) {
-      if (myShop.discount) {
+    discountCalc(price) {
+      if (this.discount) {
         price = price - price*0.2;
         return price;
       } else {
         return price;
       }
     },
-    addEmployees: function() {
+    addEmployees() {
       for (let i = 0; i < 4; i++) {
         employeeName = prompt("Введите имя сотрудкика", "");
-        if ( employeeName !== "" && employeeName !== null && isNaN(employeeName)) {
-          myShop.employees[i+1] = employeeName;
+        if ( employeeName && isNaN(employeeName)) {
+          this.employees[i+1] = employeeName;
         } else {
             employeeName = alert("Ошибка! Напишите, как зовут вашего сотрудника");
             i--;
           }
       }
     },
-    showProductItems: function() {
-      if (myShop.shopProductItems.length) {
-        myShop.shopProductItems.forEach( item => console.log(item));
+    showProductItems() {
+      if (this.shopProductItems.length) {
+        this.shopProductItems.forEach( item => console.log(item));
       } else {
         console.log("Пусто");
       }
     },
 }
 
-// myShop.startShop();
-// myShop.addProductType();
+myShop.startShop();
+myShop.addProductType();
 myShop.addProductItems();
 myShop.showProductItems();
-// myShop.addEmployees();
-// myShop.controlTimeWorking(21);
-// myShop.discountCalc();
-// myShop.console.log(discountCalc(1000));
+myShop.addEmployees();
+myShop.controlTimeWorking(21);
+myShop.discountCalc();
+myShop.console.log(discountCalc(1000));
 
 console.log(myShop);
